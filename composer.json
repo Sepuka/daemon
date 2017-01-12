@@ -1,0 +1,21 @@
+{
+  "name": "sepuka/daemon",
+  "version": "0.1",
+  "description": "A simple daemon framework",
+  "keywords": ["daemon"],
+  "require": {
+    "php": ">=7.0"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Maksim Shlomin",
+      "email": "maksim.shlomin@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "sepuka\\daemon\\": "src/"
+    }
+  }
+}
