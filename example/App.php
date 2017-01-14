@@ -3,13 +3,16 @@
 namespace youapp;
 
 use sepuka\daemon\AppInterface;
+use sepuka\daemon\DaemonInterface;
 
 class App implements AppInterface
 {
     /** @var array */
     private $config = [];
     /** @var array */
-    private $childPids = [];
+    private $pidRegister = [];
+    /** @var DaemonInterface */
+    private $daemon;
 
     /**
      * @param array $config
@@ -21,24 +24,26 @@ class App implements AppInterface
 
     public function __destruct()
     {
-        foreach ($this->childPids as $childPid) {
+        foreach ($this->pidRegister as $childPid) {
             posix_kill($childPid, SIGTERM);
         }
     }
 
-    public function run()
+    public function run(DaemonInterface $daemon)
     {
+        $this->daemon = $daemon;
         $pid = $this->worker();
         $this->registerChild($pid);
     }
 
     private function worker()
     {
+        $this->daemon->loop(function() {});
         return;
     }
 
     private function registerChild(int $pid)
     {
-        $this->childPids[] = $pid;
+        $this->pidRegister[] = $pid;
     }
 }

@@ -4,5 +4,5 @@ namespace sepuka\daemon;
 
 interface AppInterface
 {
-    public function run();
+    public function run(DaemonInterface $daemon);
 }

@@ -2,7 +2,7 @@
 
 namespace sepuka\daemon;
 
-class Daemon
+class Daemon implements DaemonInterface
 {
     const LOOP_INTERVAL = 1;
 
@@ -22,11 +22,19 @@ class Daemon
         }
     }
 
-    public function loop(AppInterface $app)
+    public function start(AppInterface $app)
     {
-        $app->run();
+        $app->run($this);
+        $this->loop();
+    }
 
+    public function loop(callable $callback = null)
+    {
         while (getenv('LOOP_ENABLED')) {
+            if (is_callable($callback)) {
+                call_user_func($callback);
+            }
+
             sleep(self::LOOP_INTERVAL);
             pcntl_signal_dispatch();
         }
