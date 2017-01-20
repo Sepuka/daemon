@@ -5,9 +5,15 @@ namespace sepuka\daemon;
 class Daemon implements DaemonInterface
 {
     const LOOP_INTERVAL = 1;
+
     private $loopEnabled = true;
 
     public function __construct()
+    {
+        $this->initSignalHandler();
+    }
+
+    private function initSignalHandler()
     {
         pcntl_signal(SIGTERM, [$this, 'signalHandler']);
     }
@@ -22,7 +28,7 @@ class Daemon implements DaemonInterface
         }
     }
 
-    public function isLoopEnabled():bool
+    public function isLoopEnabled(): bool
     {
         return $this->loopEnabled;
     }
