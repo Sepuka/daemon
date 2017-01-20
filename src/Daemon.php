@@ -5,10 +5,10 @@ namespace sepuka\daemon;
 class Daemon implements DaemonInterface
 {
     const LOOP_INTERVAL = 1;
+    private $loopEnabled = true;
 
     public function __construct()
     {
-        putenv('LOOP_ENABLED=1');
         pcntl_signal(SIGTERM, [$this, 'signalHandler']);
     }
 
@@ -16,10 +16,15 @@ class Daemon implements DaemonInterface
     {
         switch ($sig) {
             case SIGTERM:
-                putenv('LOOP_ENABLED=0');
+                $this->loopEnabled = false;
                 break;
             default:
         }
+    }
+
+    public function isLoopEnabled():bool
+    {
+        return $this->loopEnabled;
     }
 
     public function start(AppInterface $app)
@@ -30,7 +35,7 @@ class Daemon implements DaemonInterface
 
     public function loop(callable $callback = null)
     {
-        while (getenv('LOOP_ENABLED')) {
+        while ($this->isLoopEnabled()) {
             if (is_callable($callback)) {
                 call_user_func($callback);
             }
