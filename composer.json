@@ -1,6 +1,6 @@
 {
   "name": "sepuka/daemon",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A simple daemon framework",
   "keywords": ["daemon"],
   "require": {
@@ -16,6 +16,7 @@
       "email": "maksim.shlomin@gmail.com"
     }
   ],
+  "bin": ["bin/daemonservice.sh"],
   "autoload": {
     "psr-4": {
       "sepuka\\daemon\\": "src/"
