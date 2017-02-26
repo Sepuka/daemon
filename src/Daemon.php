@@ -33,7 +33,7 @@ class Daemon implements DaemonInterface
         return $this->loopEnabled;
     }
 
-    public function start(AppInterface $app)
+    public function start(CollectorInterface $app)
     {
         $app->run($this);
         $this->loop();

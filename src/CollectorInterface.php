@@ -2,7 +2,7 @@
 
 namespace sepuka\daemon;
 
-interface AppInterface
+interface CollectorInterface
 {
     public function run(DaemonInterface $daemon);
 }

@@ -2,10 +2,10 @@
 
 namespace youapp;
 
-use sepuka\daemon\AppInterface;
+use sepuka\daemon\CollectorInterface;
 use sepuka\daemon\DaemonInterface;
 
-class App implements AppInterface
+class Collector implements CollectorInterface
 {
     /** @var array */
     private $config = [];
