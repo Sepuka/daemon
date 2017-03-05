@@ -1,6 +1,6 @@
 <?php
 
-namespace youapp;
+namespace example;
 
 use sepuka\daemon\Daemon;
 
@@ -8,7 +8,7 @@ define('PROJECT_DIR', __DIR__.'/..');
 
 require PROJECT_DIR.'/vendor/autoload.php';
 
-$config = require PROJECT_DIR.'/config/config.php';
+$config = require __DIR__.'/config.php';
 $app = new Collector($config);
 $daemon = new Daemon();
 $daemon->start($app);

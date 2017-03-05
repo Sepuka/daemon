@@ -1,6 +1,6 @@
 <?php
 
-namespace youapp;
+namespace example;
 
 use sepuka\daemon\CollectorInterface;
 use sepuka\daemon\DaemonInterface;
