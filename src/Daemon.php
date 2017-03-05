@@ -8,6 +8,9 @@ class Daemon implements DaemonInterface
 
     private $loopEnabled = true;
 
+    /**
+     * Daemon constructor.
+     */
     public function __construct()
     {
         $this->initSignalHandler();
@@ -18,6 +21,10 @@ class Daemon implements DaemonInterface
         pcntl_signal(SIGTERM, [$this, 'signalHandler']);
     }
 
+    /**
+     * @param int $sig
+     * @return void
+     */
     public function signalHandler(int $sig)
     {
         switch ($sig) {
@@ -28,17 +35,26 @@ class Daemon implements DaemonInterface
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function isLoopEnabled(): bool
     {
         return $this->loopEnabled;
     }
 
+    /**
+     * @param CollectorInterface $app
+     */
     public function start(CollectorInterface $app)
     {
         $app->run($this);
         $this->loop();
     }
 
+    /**
+     * @inheritdoc
+     */
     public function loop(callable $callback = null)
     {
         while ($this->isLoopEnabled()) {
